@@ -31,6 +31,21 @@
     </div>
 </div>
 
+<!-- Kakao 우편번호 서비스 -->
+<!-- https://postcode.map.daum.net/guide -->
+<script src="//t1.daumcdn.net/mapjsapi/bundle/postcode/prod/postcode.v2.js"></script>
+<script>
+    window.onload = function() {
+        document.getElementById("address_kakao").addEventListener("click", function(){ // 클릭된 경우 이벤트 발생
+            new daum.Postcode({
+                oncomplete: function(data) {
+                    document.getElementById("address_kakao").value = data.address;
+                }
+            }).open();
+        });
+    }
+</script>
+
 <!--로딩 속도를 위해 위쪽에 css 를, 아래쪽에 js를 놓았음-->
 <!--부트스트랩 js, jquery 추가-->
 <script src="/js/lib/jquery.min.js"></script>
