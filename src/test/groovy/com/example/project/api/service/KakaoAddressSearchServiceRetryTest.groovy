@@ -39,6 +39,7 @@ class KakaoAddressSearchServiceRetryTest extends AbstractIntegrationContainerBas
         mockWebServer.shutdown()
     }
 
+    // 재처리 기능 테스트
     def "requestAddressSearch retry success"() {
         given:
         def metaDto = new MetaDto(1)
