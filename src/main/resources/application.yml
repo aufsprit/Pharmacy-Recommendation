@@ -36,6 +36,11 @@ spring:
       ddl-auto: validate # 개발환경에서만 create. 운영에서는 바꿀것! (기존 테이블을 드랍하기 때문)
     show-sql: true
 
+pharmacy:
+  recommendation:
+    base:
+      url: http://localhost:8080/dir/
+
 ---
 spring:
   config:

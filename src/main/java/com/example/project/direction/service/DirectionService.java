@@ -28,11 +28,17 @@ public class DirectionService {
     private final PharmacySearchService pharmacySearchService;
     private final KakaoCategorySearchService kakaoCategorySearchService;
     private final DirectionRepository directionRepository;
+    private final Base62Service base62Service;
 
     @Transactional
     public List<Direction> saveAll(List<Direction> directionsList) {
         if(CollectionUtils.isEmpty(directionsList)) return Collections.emptyList();
         return directionRepository.saveAll(directionsList);
+    }
+
+    public Direction findById(String encodedId) {
+        Long decodedId = base62Service.decodingDirectionId(encodedId);
+        return directionRepository.findById(decodedId).orElse(null);
     }
 
     public List<Direction> buildDirectionList(DocumentDto documentDto) {
@@ -61,6 +67,7 @@ public class DirectionService {
 
     // kakao api 카테고리로 약국 검색하기
     public List<Direction> buildDirectionListByCategoryApi(DocumentDto inputDocumentDto) {
+
         if(Objects.isNull(inputDocumentDto)) return Collections.emptyList();
 
         return kakaoCategorySearchService
