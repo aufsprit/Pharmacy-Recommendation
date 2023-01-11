@@ -1,1 +1,5 @@
-TODO: 긴 url을 짧게 변경 -> shorten url 을 사용
+긴 url을 짧게 변경 -> shorten url 을 사용
+
+2가지 방법
+1. base64 사용 -> "=" 등 url 예약어 때문에 부적절
+2. base62 사용 << 사용
