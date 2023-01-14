@@ -68,3 +68,7 @@ processTestResources {
         expand(project.properties)
     }
 }
+
+bootJar{
+    archiveFileName = 'app.jar'
+}
