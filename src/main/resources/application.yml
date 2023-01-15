@@ -62,4 +62,4 @@ spring:
 pharmacy:
   recommendation:
     base:
-      url: http://3.38.77.64/dir/
+      url: http://3.38.77.64/dir/ # 탄력적 ip 새로 받으면 수정
