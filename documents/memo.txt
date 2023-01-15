@@ -8,3 +8,47 @@ redis : in-memory 데이터베이스 (메모리 접근이 디스크 접근보다
 redis.io/docs 에서 document 를 확인
 성능을 고려하려면, 캐싱 데이터는 update 가 자주 일어나지 않는 데이터가 효과적
 redis 사용시 failover 에 대한 고려를 반드시 해야함 (redis 장애시 데이터 베이스에서 조회, 이중화 및 백업 등)
+
+aws EC2 로 서버 올리기
+인스턴스 시작 이후 설정하기
+
+보안 그룹
+인바운드, 아웃바운드 규칙 수정
+HTTP 는 0.0.0.0/0 으로 개방
+SSH 는 사용자 IP 로만 설정
+
+서버 접속
+windows 에서는 PuTTY 또는 openSSH 이용
+PuTTY 의 경우
+.pem 키를 PuTTYgen 을 이용하여 .ppk 키로 변환
+Host Name 에 instance-user-name@instance-public-dns-name 입력
+Connection - SSH - Auth 선택하여 .ppk 키를 선택하여 연결
+키 권한 문제로 접속이 안될경우 해당 키 파일의 권한을 수정..
+
+서버에 git 설치 명령어
+sudo yum update -y << 업데이트
+sudo yum install git -y << 설치
+git version << 버전 확인
+
+sudo yum install docker << docker 설치
+docker -v << docker 버전 확인
+sudo curl -L https://github.com/docker/compose/releases/download/1.29.2/docker-compose-$(uname -s)-$(uname -m) -o /usr/local/bin/docker-compose << docker-compose 설치
+sudo systemctl start docker << docker 시작
+
+docker 실행 권한 적용
+sudo chmod +x /usr/local/bin/docker-compose
+sudo chmod 666 /var/run/docker.sock
+docker-compose -v
+
+git clone <git repository 주소.git> << docker-compose 파일이 존재하는 소스 다운로드
+docker 환경변수 설정하기
+vi .env << .env 파일 만들기
+여기에 환경변수 설정 후 :wq로 저장
+
+sudo curl -L https://corretto.aws/downloads/latest/amazon-corretto-11-x64-linux-jdk.rpm -o jdk11.rpm << aws coreetto 다운로드
+sudo yum localinstall jdk11.rpm << jdk11
+
+./gradlew clean build -x test << test 케이스를 제외하고 jar 파일 빌드만 실행
+docker-compose up --build << docker 이미지로 docker compose 실행
+
+이후 탄력적 ip 주소로 접속
